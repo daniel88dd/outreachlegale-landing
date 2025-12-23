@@ -132,6 +132,27 @@
             color: var(--secondary);
         }
         
+        /* ניווט ראשי */
+        .main-nav {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -417,6 +438,10 @@
                 font-size: 1.75rem;
             }
             
+            .main-nav {
+                display: none; /* במובייל מחביאים - אפשר להוסיף המבורגר בהמשך */
+            }
+            
             .process-steps {
                 flex-direction: column;
                 gap: 40px;
@@ -469,12 +494,14 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">
+                <a href="index.html" class="logo">
                     <i class="fas fa-rocket"></i>
                     <span>OutreachLegale</span>
                 </a>
-                <nav>
-                    <!-- אפשר להוסיף כאן תפריט אם צריך -->
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link">Shopify</a>
+                    <a href="monday.html" class="nav-link">Monday</a>
+                    <a href="fiverr.html" class="nav-link">Fiverr</a>
                 </nav>
             </div>
         </div>
