@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -501,7 +501,7 @@
                 <nav class="main-nav">
                     <a href="index.html" class="nav-link">Shopify</a>
                     <a href="monday.html" class="nav-link">Monday</a>
-                    <a href="fiverr.html" class="nav-link">Fiverr</a>
+                    <!-- Fiverr הוסר עד שתכין את הדף -->
                 </nav>
             </div>
         </div>
@@ -771,20 +771,9 @@
             // כאן אפשר להוסיף קוד מעקב כמו Google Analytics או Facebook Pixel
             console.log('CTA clicked - redirecting to affiliate link');
             
-            // אם רוצים לפתוח בחלון חדש:
-            // window.open(this.href, '_blank');
-            // return false;
-        });
-        
-        // החלפת הקישורים בקישור האפיליאייט האמיתי שלך
-        document.addEventListener('DOMContentLoaded', function() {
-            const affiliateLink = "https://shopify.pxf.io/09b72P";
-            
-            const ctaButtons = document.querySelectorAll('a[href="https://shopify.pxf.io/09b72P"]');
-            ctaButtons.forEach(button => {
-                button.href = affiliateLink;
-                button.target = "_blank"; // פותח בחלון חדש
-            });
+            // פותח בחלון חדש
+            window.open(this.href, '_blank');
+            return false;
         });
     </script>
 </body>
