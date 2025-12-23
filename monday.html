@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html lang="he" dir="ltr">
-     <style>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OutreachLegale — Streamline Projects with monday.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
         /* Reset ובסיס */
         * {
             margin: 0;
@@ -9,9 +14,10 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
         
+        /* ערכי צבע מותאמים ל-Monday.com */
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
+            --primary: #f95c3c; /* כתום Monday.com */
+            --primary-dark: #e04b2b;
             --secondary: #7c3aed;
             --accent: #10b981;
             --dark: #1e293b;
@@ -88,7 +94,7 @@
         .btn:hover {
             background-color: var(--primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(249, 92, 60, 0.3);
         }
         
         .btn-lg {
@@ -144,7 +150,7 @@
         }
         
         .nav-link:hover {
-            background-color: rgba(37, 99, 235, 0.1);
+            background-color: rgba(249, 92, 60, 0.1);
             color: var(--primary);
         }
         
@@ -434,7 +440,7 @@
             }
             
             .main-nav {
-                display: none; /* במובייל מחביאים - אפשר להוסיף המבורגר בהמשך */
+                display: none;
             }
             
             .process-steps {
@@ -483,35 +489,6 @@
             }
         }
     </style>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OutreachLegale — Streamline Projects with monday.com</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* ערכי צבע מותאמים ל-Monday.com */
-        :root {
-            --primary: #f95c3c; /* כתום Monday.com */
-            --primary-dark: #e04b2b;
-            --secondary: #7c3aed;
-            --accent: #10b981;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #94a3b8;
-            --gray-light: #e2e8f0;
-            --white: #ffffff;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --radius: 12px;
-            --transition: all 0.3s ease;
-        }
-        
-        .logo {
-            color: var(--primary); /* מותאם לצבע המותג */
-        }
-        
-        /* שאר ה-CSS זהה לדף Shopify */
-        /* ... */
-    </style>
 </head>
 <body>
     <!-- Header -->
@@ -522,8 +499,10 @@
                     <i class="fas fa-rocket"></i>
                     <span>OutreachLegale</span>
                 </a>
-                <nav>
-                    <!-- אפשר להוסיף כאן תפריט אם צריך -->
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link">Shopify</a>
+                    <a href="monday.html" class="nav-link">Monday</a>
+                    <!-- Fiverr הוסר עד שתכין את הדף -->
                 </nav>
             </div>
         </div>
@@ -790,17 +769,8 @@
         // מעקב קליקים על CTA
         document.getElementById('main-cta').addEventListener('click', function() {
             console.log('CTA clicked - redirecting to monday.com affiliate link');
-        });
-        
-        // החלפת הקישורים בקישור האפיליאייט האמיתי שלך
-        document.addEventListener('DOMContentLoaded', function() {
-            const affiliateLink = "YOUR_MONDAY_AFFILIATE_LINK";
-            
-            const ctaButtons = document.querySelectorAll('a[href="YOUR_MONDAY_AFFILIATE_LINK"]');
-            ctaButtons.forEach(button => {
-                button.href = affiliateLink;
-                button.target = "_blank";
-            });
+            window.open(this.href, '_blank');
+            return false;
         });
     </script>
 </body>
