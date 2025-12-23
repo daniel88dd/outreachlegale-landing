@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="he" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OutreachLegale — Launch a High-Converting Shopify Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset ובסיס */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --gray-light: #e2e8f0;
+            --white: #ffffff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            color: var(--dark);
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+            color: #4a5568;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-lg {
+            padding: 18px 40px;
+            font-size: 1.25rem;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .hero h1, .hero p {
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.375rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.95;
+        }
+        
+        .microcopy {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            opacity: 0.85;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* Features Section */
+        .features {
+            background-color: var(--white);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-light);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        /* Trust Section */
+        .trust {
+            background-color: #f8fafc;
+            text-align: center;
+        }
+        
+        .trust-badge {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            background-color: var(--white);
+        }
+        
+        .benefits-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: var(--radius);
+            background-color: #f8fafc;
+        }
+        
+        .benefit-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-right: 20px;
+            margin-top: 5px;
+        }
+        
+        /* Process Section */
+        .process {
+            background-color: #f0f9ff;
+            text-align: center;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 50px auto;
+            position: relative;
+        }
+        
+        .process-step {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step-arrow {
+            font-size: 2rem;
+            color: var(--gray);
+            margin: 0 20px;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.9)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .final-cta h2, .final-cta p {
+            color: white;
+        }
+        
+        .final-cta h2 {
+            font-size: 2.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            background-color: var(--white);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background-color: #f8fafc;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .faq-answer.open {
+            padding: 20px;
+            max-height: 300px;
+        }
+        
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-toggle.open {
+            transform: rotate(45deg);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .disclaimer {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+        
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.75rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .step-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefit-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .benefit-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .microcopy {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .btn, .btn-lg {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>OutreachLegale</span>
+                </a>
+                <nav>
+                    <!-- אפשר להוסיף כאן תפריט אם צריך -->
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Launch a High-Converting Online Store — Faster Than You Think</h1>
+            <p class="hero-subtitle">
+                A practical, no-fluff framework to launch a professional Shopify store that's ready to sell.
+                Built for founders, creators, and small businesses who want results — not guesswork.
+            </p>
+            <a href="https://shopify.pxf.io/09b72P" class="btn btn-lg" id="main-cta">
+                <i class="fas fa-shopping-cart"></i> Start Free with Shopify
+            </a>
+            <div class="microcopy">
+                <span><i class="fas fa-credit-card"></i> No credit card required</span>
+                <span><i class="fas fa-shield-alt"></i> Official Shopify free trial</span>
+                <span><i class="fas fa-handshake"></i> Transparent affiliate disclosure</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Approach Works -->
+    <section class="features">
+        <div class="container">
+            <h2>Why This Approach Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Built for Conversion</h3>
+                    <p>Clear structure, proven page flow, and conversion-first essentials — so visitors know exactly what to do next.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>No Technical Overload</h3>
+                    <p>You don't need to code or "figure it out alone." This keeps setup simple and focused on the few actions that matter.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Scalable from Day One</h3>
+                    <p>Start lean, validate fast, and expand only when the fundamentals are working.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust">
+        <div class="container">
+            <div class="trust-badge">
+                <i class="fas fa-award"></i>
+            </div>
+            <h2>Trusted by millions of businesses worldwide</h2>
+            <p style="max-width: 800px; margin: 0 auto;">
+                Shopify powers stores in nearly every niche — from one-product brands to global companies.
+                This page shares a streamlined path to get started without wasting weeks on tools you don't need.
+            </p>
+        </div>
+    </section>
+
+    <!-- What You'll Get -->
+    <section class="benefits">
+        <div class="container">
+            <h2>What You'll Get (in under an hour)</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>A simple store setup plan</h3>
+                        <p>No clutter, no extra apps — just what you need to get started.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>A launch checklist you can follow step-by-step</h3>
+                        <p>A clear roadmap from zero to launch without missing important steps.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>A clean, professional structure</h3>
+                        <p>Looks credible from day one, even if you're just starting out.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>A conversion-focused homepage flow</h3>
+                        <p>Hero → trust → offer → CTA — optimized to turn visitors into customers.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>Practical guidance on payments, shipping, and basic policies</h3>
+                        <p>Set up the essentials that every store needs to operate smoothly.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>A quick "go live" path</h3>
+                        <p>So you can start testing and improving fast, not just building forever.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="process">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Pick a niche</h3>
+                    <p>Choose your focus and target audience</p>
+                </div>
+                
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Set up essentials</h3>
+                    <p>Configure store, payments, and policies</p>
+                </div>
+                
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Launch</h3>
+                    <p>Go live and start collecting data</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to build your store the right way?</h2>
+            <p style="max-width: 700px; margin: 0 auto 40px;">
+                Start with the official Shopify free trial, set the essentials, and launch a clean version fast.
+                If you decide to grow, you can scale from a working foundation — not from chaos.
+            </p>
+            <a href="https://shopify.pxf.io/09b72P" class="btn btn-lg">
+                <i class="fas fa-play-circle"></i> Start Free with Shopify
+            </a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2>FAQ</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is this free?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Shopify offers an official free trial. If you choose to upgrade later, that's up to you.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do you get paid from this?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes — this page may use affiliate links. That means I may earn a commission if you sign up, at no extra cost to you.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do I need experience?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No. This is designed for beginners who want a clean, structured start.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is this the official Shopify trial?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes — the button sends you to Shopify via an official tracked referral link.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="disclaimer">
+                <p><strong>Affiliate Disclosure:</strong> This page may use affiliate links. That means I may earn a commission if you sign up through my links, at no extra cost to you. I only recommend products and services that I believe will provide value to you.</p>
+            </div>
+            
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="delete-data.html">Delete My Data</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 OutreachLegale. All rights reserved. This site is not affiliated with Shopify Inc.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // טוגל לשאלות FAQ
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            answer.classList.toggle('open');
+            toggle.classList.toggle('open');
+        }
+        
+        // מעקב קליקים על CTA
+        document.getElementById('main-cta').addEventListener('click', function() {
+            // כאן אפשר להוסיף קוד מעקב כמו Google Analytics או Facebook Pixel
+            console.log('CTA clicked - redirecting to affiliate link');
+            
+            // אם רוצים לפתוח בחלון חדש:
+            // window.open(this.href, '_blank');
+            // return false;
+        });
+        
+        // החלפת הקישורים בקישור האפיליאייט האמיתי שלך
+        document.addEventListener('DOMContentLoaded', function() {
+            const affiliateLink = "https://shopify.pxf.io/09b72P";
+            
+            const ctaButtons = document.querySelectorAll('a[href="https://shopify.pxf.io/09b72P"]');
+            ctaButtons.forEach(button => {
+                button.href = affiliateLink;
+                button.target = "_blank"; // פותח בחלון חדש
+            });
+        });
+    </script>
+</body>
+</html>
