@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — OutreachGo Analytics</title>
+  <!-- PRIVATE: Not linked from public site. Protect with Cloudflare Access or equivalent. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080910; --bg2: #0e1018; --bg3: #13151f; --bg4: #191b26;
+      --border: rgba(255,255,255,.07);
+      --border-hi: rgba(255,255,255,.12);
+      --text: #e8e8ee; --text-muted: #7a7a96; --text-faint: #3e3e58;
+      --gold: #c9a84c; --gold-dim: rgba(201,168,76,.1);
+      --green: #34d399; --green-bg: rgba(52,211,153,.08);
+      --red: #f87171; --red-bg: rgba(248,113,113,.08);
+      --blue: #60a5fa; --blue-bg: rgba(96,165,250,.08);
+      --radius: 12px; --radius-sm: 8px;
+      --transition: 0.18s ease;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    html, body { height: 100%; background: var(--bg); }
+    body { font-family: var(--font-body); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; display: flex; }
+
+    /* SIDEBAR */
+    .sidebar { width: 220px; flex-shrink: 0; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; min-height: 100vh; position: sticky; top: 0; }
+    .sb-logo { padding: 1.5rem 1.25rem .5rem; }
+    .sb-logo a { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--text); text-decoration: none; }
+    .sb-logo a em { font-style: italic; color: var(--gold); }
+    .sb-tag { display: inline-block; font-size: .6rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; background: var(--gold-dim); color: var(--gold); padding: .15rem .5rem; border-radius: 50px; margin-left: .25rem; }
+    .sb-nav { padding: 1rem .75rem; flex: 1; }
+    .sb-group { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); padding: 0 .5rem; margin: 1rem 0 .4rem; }
+    .sb-nav ul { list-style: none; }
+    .sb-nav a { display: flex; align-items: center; gap: .6rem; padding: .5rem .75rem; border-radius: var(--radius-sm); font-size: .82rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: all var(--transition); }
+    .sb-nav a:hover { background: var(--bg3); color: var(--text); }
+    .sb-nav a.active { background: var(--gold-dim); color: var(--gold); }
+    .sb-nav a svg { flex-shrink: 0; opacity: .7; }
+    .sb-footer { padding: .75rem; border-top: 1px solid var(--border); }
+    .sb-footer a { display: flex; align-items: center; gap: .5rem; font-size: .8rem; color: var(--text-faint); text-decoration: none; padding: .4rem .5rem; border-radius: var(--radius-sm); transition: color var(--transition); }
+    .sb-footer a:hover { color: var(--text-muted); }
+
+    /* MAIN */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+    .topbar { height: 60px; border-bottom: 1px solid var(--border); background: var(--bg2); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; flex-shrink: 0; }
+    .topbar-title { font-size: .875rem; font-weight: 600; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .live-badge { font-size: .7rem; font-weight: 600; background: var(--green-bg); color: var(--green); padding: .25rem .65rem; border-radius: 50px; }
+    .refresh-btn { display: flex; align-items: center; gap: .35rem; font-size: .75rem; color: var(--text-muted); background: var(--bg3); border: 1px solid var(--border); padding: .35rem .8rem; border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-body); transition: all var(--transition); }
+    .refresh-btn:hover { color: var(--text); border-color: var(--border-hi); }
+
+    .content { flex: 1; overflow-y: auto; padding: 2rem; }
+
+    /* STAT CARDS */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.75rem; }
+    .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; }
+    .stat-card.highlight { border-color: rgba(201,168,76,.22); background: var(--gold-dim); }
+    .stat-label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: .5rem; }
+    .stat-value { font-family: var(--font-display); font-size: 2.25rem; font-weight: 600; line-height: 1; color: var(--text); margin-bottom: .3rem; }
+    .stat-card.highlight .stat-value { color: var(--gold); }
+    .stat-delta { font-size: .75rem; color: var(--text-faint); }
+    .delta-up { color: var(--green); }
+
+    /* TWO-COL */
+    .two-col { display: grid; grid-template-columns: 1fr 1.4fr; gap: 1.25rem; margin-bottom: 1.75rem; }
+    .panel { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .panel-head { padding: .875rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .panel-title { font-size: .8rem; font-weight: 600; color: var(--text); }
+    .panel-meta { font-size: .7rem; color: var(--text-faint); }
+    .panel-body { padding: 1.25rem; }
+
+    /* BAR CHART */
+    .bar-list { display: flex; flex-direction: column; gap: 1rem; }
+    .bar-item { }
+    .bar-meta-row { display: flex; justify-content: space-between; margin-bottom: .35rem; }
+    .bar-name { font-size: .8rem; font-weight: 500; color: var(--text); }
+    .bar-count { font-size: .8rem; color: var(--text-muted); font-family: var(--font-mono); }
+    .bar-track { height: 5px; background: var(--bg4); border-radius: 50px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 50px; background: var(--gold); transition: width .7s cubic-bezier(.4,0,.2,1); }
+    .bar-fill.green { background: var(--green); }
+    .bar-fill.blue  { background: var(--blue); }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; }
+    th { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); padding: .5rem 1.25rem; text-align: left; border-bottom: 1px solid var(--border); }
+    td { padding: .7rem 1.25rem; font-size: .82rem; border-bottom: 1px solid rgba(255,255,255,.03); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,.015); }
+    .offer-pill { display: inline-flex; align-items: center; gap: .4rem; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .dot.green { background: var(--green); }
+    .dot.blue  { background: var(--blue); }
+    .mono { font-family: var(--font-mono); font-size: .75rem; color: var(--text-muted); }
+    .time-text { font-size: .78rem; color: var(--text-faint); }
+
+    /* TID SECTION */
+    .sec-title { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 1rem; }
+    .tid-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .875rem; }
+    .tid-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; transition: border-color var(--transition); }
+    .tid-card:hover { border-color: var(--border-hi); }
+    .tid-label { font-size: .62rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: .35rem; }
+    .tid-val { font-family: var(--font-mono); font-size: .8rem; color: var(--text); word-break: break-all; }
+    .tid-row { display: flex; justify-content: space-between; align-items: center; margin-top: .6rem; font-size: .78rem; color: var(--text-muted); }
+    .badge { font-size: .68rem; font-weight: 600; padding: .18rem .5rem; border-radius: 50px; }
+    .badge-green { background: var(--green-bg); color: var(--green); }
+
+    @media (max-width: 1200px) { .stats-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+    @media (max-width: 700px) { .sidebar { display: none; } .content { padding: 1rem; } .topbar { padding: 0 1rem; } }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-logo">
+    <a href="/admin">Outreach<em>Go</em></a><span class="sb-tag">Admin</span>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group">Analytics</div>
+    <ul>
+      <li><a href="/admin" class="active">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a></li>
+      <li><a href="#clicks">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Click Logs
+      </a></li>
+      <li><a href="#tids">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        TIDs
+      </a></li>
+    </ul>
+    <div class="sb-group">Offers</div>
+    <ul>
+      <li><a href="#">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Offer Manager
+      </a></li>
+    </ul>
+  </nav>
+  <div class="sb-footer">
+    <a href="/" target="_blank" rel="noopener">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      View Public Site
+    </a>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <span class="topbar-title">Dashboard Overview</span>
+    <div class="topbar-right">
+      <span class="live-badge">● Live</span>
+      <button class="refresh-btn" onclick="loadData()">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+        Refresh
+      </button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card highlight">
+        <div class="stat-label">Total Clicks</div>
+        <div class="stat-value" id="s-total">—</div>
+        <div class="stat-delta delta-up" id="s-total-d">Loading…</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Today</div>
+        <div class="stat-value" id="s-today">—</div>
+        <div class="stat-delta delta-up" id="s-today-d">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">This Week</div>
+        <div class="stat-value" id="s-week">—</div>
+        <div class="stat-delta" id="s-week-d">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Offers</div>
+        <div class="stat-value">3</div>
+        <div class="stat-delta" style="color:var(--text-faint)">Monday · CF · Fiverr</div>
+      </div>
+    </div>
+
+    <!-- TWO COL: BARS + RECENT CLICKS TABLE -->
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Clicks by Offer</span>
+          <span class="panel-meta">All time</span>
+        </div>
+        <div class="panel-body">
+          <div class="bar-list">
+            <div class="bar-item">
+              <div class="bar-meta-row"><span class="bar-name">Monday.com</span><span class="bar-count" id="b-monday">—</span></div>
+              <div class="bar-track"><div class="bar-fill green" id="bf-monday" style="width:0%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-meta-row"><span class="bar-name">ClickFunnels</span><span class="bar-count" id="b-cf">—</span></div>
+              <div class="bar-track"><div class="bar-fill" id="bf-cf" style="width:0%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-meta-row"><span class="bar-name">Fiverr</span><span class="bar-count" id="b-fiverr">—</span></div>
+              <div class="bar-track"><div class="bar-fill blue" id="bf-fiverr" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="clicks">
+        <div class="panel-head">
+          <span class="panel-title">Recent Clicks</span>
+          <span class="panel-meta">Last 10</span>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Offer</th><th>TID</th><th>Time</th></tr>
+          </thead>
+          <tbody id="tb-clicks">
+            <tr><td colspan="3" style="color:var(--text-faint);text-align:center;padding:2rem 1.25rem">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TIDS -->
+    <div id="tids">
+      <div class="sec-title">Tracking IDs (TIDs)</div>
+      <div class="tid-grid" id="tid-grid">
+        <div style="color:var(--text-faint);font-size:.8rem">Loading…</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Replace with your real Worker analytics endpoint when ready
+  const ENDPOINT = 'https://go.outreachgo.net/api/stats';
+
+  const MOCK = {
+    total: 1482, today: 37, week: 284,
+    byOffer: { monday: 612, clickfunnels: 498, fiverr: 372 },
+    recentClicks: [
+      { offer: 'monday',       tid: 'tid_8f3a2c1', time: '2 min ago' },
+      { offer: 'clickfunnels', tid: 'tid_9d1b4e7', time: '5 min ago' },
+      { offer: 'fiverr',       tid: 'tid_2c8f0a3', time: '11 min ago' },
+      { offer: 'monday',       tid: 'tid_5e7d1b9', time: '18 min ago' },
+      { offer: 'clickfunnels', tid: 'tid_4a3c6f2', time: '22 min ago' },
+      { offer: 'monday',       tid: 'tid_0b9e5d8', time: '31 min ago' },
+      { offer: 'fiverr',       tid: 'tid_7f1a4c0', time: '45 min ago' },
+      { offer: 'monday',       tid: 'tid_3d8b2e6', time: '52 min ago' },
+      { offer: 'clickfunnels', tid: 'tid_6c0f9a1', time: '1 hr ago' },
+      { offer: 'fiverr',       tid: 'tid_1e7b3d5', time: '1 hr ago' },
+    ],
+    tids: [
+      { tid: 'tid_8f3a2c1', offer: 'Monday.com',   clicks: 74, last: '2 min ago' },
+      { tid: 'tid_9d1b4e7', offer: 'ClickFunnels', clicks: 52, last: '5 min ago' },
+      { tid: 'tid_2c8f0a3', offer: 'Fiverr',       clicks: 41, last: '11 min ago' },
+      { tid: 'tid_5e7d1b9', offer: 'Monday.com',   clicks: 38, last: '18 min ago' },
+      { tid: 'tid_4a3c6f2', offer: 'ClickFunnels', clicks: 29, last: '22 min ago' },
+      { tid: 'tid_0b9e5d8', offer: 'Monday.com',   clicks: 21, last: '31 min ago' },
+    ]
+  };
+
+  const offerLabel = { monday: 'Monday.com', clickfunnels: 'ClickFunnels', fiverr: 'Fiverr' };
+  const offerDot   = { monday: 'green', clickfunnels: '', fiverr: 'blue' };
+
+  function render(d) {
+    document.getElementById('s-total').textContent   = d.total.toLocaleString();
+    document.getElementById('s-total-d').textContent = '↑ All-time total';
+    document.getElementById('s-today').textContent   = d.today;
+    document.getElementById('s-today-d').textContent = '↑ ' + d.today + ' clicks today';
+    document.getElementById('s-week').textContent    = d.week.toLocaleString();
+    document.getElementById('s-week-d').textContent  = '↑ ' + d.week + ' this week';
+
+    const max = Math.max(...Object.values(d.byOffer));
+    ['monday','clickfunnels','fiverr'].forEach(k => {
+      document.getElementById('b-' + k.replace('clickfunnels','cf')).textContent = d.byOffer[k];
+      document.getElementById('bf-' + k.replace('clickfunnels','cf')).style.width = (d.byOffer[k] / max * 100) + '%';
+    });
+
+    document.getElementById('tb-clicks').innerHTML = d.recentClicks.map(c => `
+      <tr>
+        <td><span class="offer-pill"><span class="dot ${offerDot[c.offer] || ''}"></span>${offerLabel[c.offer] || c.offer}</span></td>
+        <td><span class="mono">${c.tid}</span></td>
+        <td><span class="time-text">${c.time}</span></td>
+      </tr>
+    `).join('');
+
+    document.getElementById('tid-grid').innerHTML = d.tids.map(t => `
+      <div class="tid-card">
+        <div class="tid-label">Tracking ID</div>
+        <div class="tid-val">${t.tid}</div>
+        <div class="tid-row">
+          <span>${t.offer}</span>
+          <span class="badge badge-green">${t.clicks} clicks</span>
+        </div>
+        <div style="font-size:.72rem;color:var(--text-faint);margin-top:.4rem">Last: ${t.last}</div>
+      </div>
+    `).join('');
+  }
+
+  async function loadData() {
+    try {
+      const r = await fetch(ENDPOINT);
+      if (!r.ok) throw 0;
+      render(await r.json());
+    } catch { render(MOCK); }
+  }
+
+  loadData();
+  setInterval(loadData, 60000);
+</script>
+</body>
+</html>
